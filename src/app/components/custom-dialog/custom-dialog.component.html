@@ -1,0 +1,31 @@
+<!-- 'overflow':'visible' rabimo za to, da so morebitni dropdowni, ki padejo čez dialog, vidni -->
+<p-dialog [modal]="true" [contentStyle]="{'overflow':'visible'}" [(visible)]="this.dialogVisible" (onHide)="this.dialogOnHide($event)">
+
+  <p-header>
+    <!-- damo na konec tri presledke, da ni X od dialoga preblizu napisu -->
+    {{title}}&emsp;&emsp;&emsp;
+  </p-header>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <i class="{{this.dialogIcon}} dialogIcon"></i>
+    <pre> </pre>
+    <div fxLayout="column">
+      <span fxFlex>{{text}}</span>
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <p-footer>
+    <!-- tukaj podajamo vrednost enuma; žal se ne moremo sklicevati na enum v htmlju -->
+    <p-button *ngIf="this.getButtonVisible(8)" [disabled]="this.getButtonDisabled(8)" label="Yes" (onClick)="this.dialogActionButtonClick($event, 8)"></p-button>
+    <p-button *ngIf="this.getButtonVisible(4)" [disabled]="this.getButtonDisabled(4)" label="No" (onClick)="this.dialogActionButtonClick($event, 4)"></p-button>
+    <p-button *ngIf="this.getButtonVisible(2)" [disabled]="this.getButtonDisabled(2)" label="OK" (onClick)="this.dialogActionButtonClick($event, 2)"></p-button>
+    <p-button *ngIf="this.getButtonVisible(1)" [disabled]="this.getButtonDisabled(1)" label="Cancel" (onClick)="this.dialogActionButtonClick($event, 1)"></p-button>
+
+    <ng-template ngFor let-dialogCustomAction [ngForOf]="this.dialogCustomActions">
+      <p-button *ngIf="!dialogCustomAction.hidden" [disabled]="dialogCustomAction.disabled" [label]="dialogCustomAction.label"
+        (onClick)="this.dialogActionButtonClick($event, dialogCustomAction.dialogAction)"></p-button>
+    </ng-template>
+  </p-footer>
+
+</p-dialog>

@@ -1,0 +1,5 @@
+<div appCustomTooltip [tooltipText]="this.tooltip" [showTooltip]="this.showTooltip" fxLayout="row">
+  <p-checkbox binary="true" [ngModel]="this.value" (ngModelChange)="this.value=$event" [disabled]="this.disabled"></p-checkbox>
+  <pre> </pre>
+  <span class="ui-chkbox-label label" fxFlex>{{this.caption}}</span>
+</div>

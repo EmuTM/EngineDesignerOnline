@@ -1,0 +1,33 @@
+<p-accordion expandIcon="" collapseIcon="">
+
+  <p-accordionTab #accordionTab [disabled]="this.disabled" appCustomTooltip [tooltipText]="this.tooltip" [showTooltip]="this.showTooltip">
+
+    <p-header>
+      <div fxLayout="row" fxLayoutAlign=" center">
+
+        <i class="{{this.icon}}"></i>
+        <span fxFlex>{{this.caption}}</span>
+
+        <p-button *ngIf="this.menuModel" icon="fa fa-list" (onClick)="this.toggleMenu($event)" class="menuButton"></p-button>
+      </div>
+
+      <!-- to je, če bi imel raje toolbar v glavi -->
+      <!-- <p-toolbar>
+        <div class="ui-toolbar-group-left">
+          <i class="{{this.icon}}"></i>
+          {{this.caption}}
+        </div>
+        <div class="ui-toolbar-group-right">
+          <button type="button" pButton icon="fa fa-list" (click)="this.toggleMenu($event)" style="font-size:14px  TO MORA BITI CSS"></button>
+        </div>
+      </p-toolbar>
+ -->
+    </p-header>
+
+    <ng-content></ng-content>
+
+  </p-accordionTab>
+
+</p-accordion>
+
+<p-menu *ngIf="this.menuModel" #menu popup="true" [model]="this.menuModel" appCustomMenu [menuState]="this.menuState" (menuOpening)="this.onMenuOpening($event)"></p-menu>

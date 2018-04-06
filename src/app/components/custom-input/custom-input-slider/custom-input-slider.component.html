@@ -1,0 +1,6 @@
+<div appCustomTooltip [tooltipText]="this.tooltip" [showTooltip]="this.showTooltip" fxLayout="column">
+  <span class="ui-dropdown-label">{{this.caption}}</span>
+
+  <p-slider [ngModel]="this.value" (ngModelChange)="this.value=$event" [min]="this.min" [max]="this.max" [disabled]="this.disabled"
+    [animate]="true" fxFlex></p-slider>
+</div>

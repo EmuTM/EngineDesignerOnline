@@ -1,0 +1,210 @@
+<app-custom-dialog #dialog>
+  <div class="dialog">
+    <!-- žal je zaradi primengja tako, da je zaenkrat možno nastavljat height carda samo tako, da ga damo v div in tukaj nastavimo 100% (ali pa inline) -->
+    <p-card styleClass="ui-card-shadow" [style]="{width: '100%', height: '100%'}">
+
+      <app-custom-steps [(currentStep)]="this.currentStep" [readonly]="true">
+        <app-custom-step label="Start">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Welcome! This wizard will help you create a new engine.</h3>
+
+            <p>An engine is defined by several parameters, like stroke, displacement, number of cylinders and physical layout.
+              This wizard simplyfies the process of creating an engine by automatically selecting the most appropriate engine
+              configuration from the given parameters.</p>
+
+            <p>Click Next to continue.</p>
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Cycle">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the engine's cycle:</h3>
+
+            <div class="divider-s"></div>
+
+            <!-- ker se ne moremo direktno sklicevati na cikel, damo za value CycleId kot string -->
+            <p-radioButton value="Two-Stroke" [(ngModel)]="this.selectedCycle" label="Two stroke">
+            </p-radioButton>
+            <p class="info">This type of engine completes a power cycle every crankshaft revolution and with two strokes.</p>
+
+            <p-radioButton value="Four-Stroke" [(ngModel)]="this.selectedCycle" label="Four stroke"></p-radioButton>
+            <p class="info">This type of engine completes a power cycle every second crankshaft revolution and with four strokes.</p>
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Layout">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the engine's layout:</h3>
+
+            <div class="divider-s"></div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between none">
+              <div class="engineLayouts" fxFlex="50">
+                <p-tree [value]="this.engineLayouts" [(selection)]="this.selectedEngineLayout" (onNodeSelect)="this.selectedEngineLayoutChanged($event)"
+                  selectionMode="single" [style]="{border: 'none'}"></p-tree>
+              </div>
+
+              <!-- 10 flexa pustimo za vmesni prostor -->
+
+              <label fxFlex="40">* {{this.selectedEngineLayout?.data.toolTip}}</label>
+            </div>
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Bore & Stroke">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the engine's bore and stroke, or simply displacement:</h3>
+
+            <div class="divider-s"></div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between none">
+              <app-custom-input-text-floating-point [disabled]="this.selectedStrokeFixed" [(ngModel)]="this.selectedBore_mm" (valueChanged)="this.setDisplacement()"
+                caption="Bore (mm)" fxFlex="70"></app-custom-input-text-floating-point>
+
+              <!-- ta kolobocija je zato, da imamo checkbox na isti višini -->
+              <div fxFlex="20">
+                <div class="divider-s"></div>
+                <app-custom-input-checkbox [(ngModel)]="this.selectedBoreFixed" (valueChanged)="this.selectedBoreFixedChanged($event)" caption="Fixed"></app-custom-input-checkbox>
+              </div>
+            </div>
+            <span class="info">Bore is the diameter of the cylinder.</span>
+
+            <div class="divider-s"></div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between none">
+              <app-custom-input-text-floating-point [disabled]="this.selectedBoreFixed" [(ngModel)]="this.selectedStroke_mm" (valueChanged)="this.setDisplacement()"
+                caption="Stroke (mm)" fxFlex="70"></app-custom-input-text-floating-point>
+
+              <!-- ta kolobocija je zato, da imamo checkbox na isti višini -->
+              <div fxFlex="20">
+                <div class="divider-s"></div>
+                <app-custom-input-checkbox [(ngModel)]="this.selectedStrokeFixed" (valueChanged)="this.selectedStrokeFixedChanged($event)"
+                  caption="Fixed"></app-custom-input-checkbox>
+              </div>
+            </div>
+            <span class="info">Stroke is the reciprocating travel of the piston within the cylinder.</span>
+
+            <div class="divider-m"></div>
+            <div class="divider-m line"></div>
+
+            <!-- ta div je samo zato, da je enak flex -->
+            <div fxLayout="row" fxLayoutAlign="space-between none">
+              <app-custom-input-text-floating-point [(ngModel)]="this.selectedDisplacement_cm3" (valueChanged)="this.selectedDisplacementChanged($event)"
+                caption="Displacement (cm³)" fxFlex="70"></app-custom-input-text-floating-point>
+            </div>
+            <p class="info">Displacement is the value computed from bore, stroke and the nuber of cylinders in an engine.</p>
+
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Piston mass">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the mass of the pistons:</h3>
+
+            <div class="divider-s"></div>
+
+            <app-custom-input-text-floating-point [(ngModel)]="this.selectedPistonMass_g" caption="Piston mass (g)"></app-custom-input-text-floating-point>
+            <p class="info">The mass of the piston with accessories. This is the biggest contributor of reciprocating forces.</p>
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Connrod length">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the connecting rod's length:</h3>
+
+            <div class="divider-s"></div>
+
+            <app-custom-input-text-floating-point [(ngModel)]="this.selectedConnectingRodLength_mm" caption="Conecting rod length (mm)"></app-custom-input-text-floating-point>
+            <p class="info">The length of the connecting rod significantly alters the characteristics of an engine.</p>
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Connrod mass">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the connecting rod's mass and mass distribution:</h3>
+
+            <div class="divider-s"></div>
+
+            <app-custom-input-text-floating-point [(ngModel)]="this.selectedConnectingRodMass_g" caption="Conecting rod mass (g)"></app-custom-input-text-floating-point>
+            <p class="info">The mass of the connecting rod will contribute to both rotating and reciprocating forces.</p>
+
+            <div class="divider-s"></div>
+            <div class="divider-s line"></div>
+
+            <p>Mass and distance distribution:</p>
+
+            <div fxLayout="row" fxLayoutAlign="space-between none">
+              <app-custom-property-floating-point [value]="this.rotatingDistributionPercentage * 100" caption="Rotating" flex="20">%</app-custom-property-floating-point>
+              <p flex></p>
+              <app-custom-property-floating-point [value]="this.reciprocatingDistributionPercentage * 100" caption="Reciprocating" flex="20">%</app-custom-property-floating-point>
+            </div>
+
+            <app-custom-input-slider [(ngModel)]="this.selectedConnectingRodMassDistribution" [min]="0" [max]="100"></app-custom-input-slider>
+            <p class="info">The mass and distance distribution percentage defines what portion of connecting rod's mass will be treated as
+              rotating mass and what portion as reciprocating mass. The same percentage will be used for masses positioning
+              with respect to the connecting rod's center of gravity.</p>
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Balancers">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the masses of the balancers and their rotation radiuses:</h3>
+
+            <div class="divider-s"></div>
+
+            <app-custom-input-text-floating-point [(ngModel)]="this.selectedBalancerMass_g" caption="Balancer mass (g)"></app-custom-input-text-floating-point>
+
+            <div class="divider-s"></div>
+
+            <app-custom-input-text-floating-point [disabled]="this.selectedBalancerMass_g > 0" [(ngModel)]="this.selectedBalancerRotationRadius_mm"
+              caption="Rotation radius (mm)"></app-custom-input-text-floating-point>
+
+            <div class="divider-m"></div>
+
+            <span class="info">The crank balancer is used to counteract the reciprocating forces. The forces and torques that are generated
+              by the crank balancer depend on its mass and rotation radius.</span>
+
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Flywheel">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3>Select the mass of the flywheel and its diameter:</h3>
+
+            <div class="divider-s"></div>
+
+            <app-custom-input-text-floating-point [(ngModel)]="this.selectedFlywheelMass_g" caption="Flywheel mass (g)"></app-custom-input-text-floating-point>
+
+            <div class="divider-s"></div>
+
+            <app-custom-input-text-floating-point [disabled]="this.selectedFlywheelMass_g > 0" [(ngModel)]="this.selectedFlywheelDiameter_mm"
+              caption="Flywheel diameter (mm)"></app-custom-input-text-floating-point>
+
+            <div class="divider-m"></div>
+
+            <span class="info">The flywheel is used to smooth out the engine's torque pulses. The energy that a flywheel can absorb depends
+              on its mass and diameter.</span>
+
+          </div>
+        </app-custom-step>
+
+        <app-custom-step label="Finish">
+          <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <h3 *ngIf="!this.engineValidationOutcome">Validating engine...</h3>
+            <h3 *ngIf="this.engineValidationOutcome === 1">Engine validation successful!</h3>
+            <h3 *ngIf="this.engineValidationOutcome === 2">Error while validating the engine!</h3>
+
+            <div class="divider-s"></div>
+
+            <p-progressBar [value]="this.progress" fxFlex></p-progressBar>
+
+            <div class="divider-s"></div>
+
+            <p *ngIf="this.engineValidationOutcome === 2">{{this.engineValidationErrorMessage}}</p>
+          </div>
+        </app-custom-step>
+      </app-custom-steps>
+
+    </p-card>
+  </div>
+</app-custom-dialog>

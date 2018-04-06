@@ -1,0 +1,33 @@
+/* tukaj določimo, koliko prostora si vzame vsak step (torej: 100 / št. stepov; to je glupa rešitev, ma zaenkrat boljše ni zaradi primengja */
+.ui-steps .ui-steps-item {
+    width: 10%;
+}
+
+
+/* to je kustomizacija, ker imamo natlačene stepe in zato tekste v dveh linijah */
+.ui-steps  {
+    margin-bottom: 56px !important;
+}
+.ui-steps-title {
+    margin-top: 4px;
+    line-height: 16px;
+    white-space:normal !important;
+}
+
+
+.dialog{
+    width: 1024px;
+    height: 600px;
+}
+
+.info{
+    margin-left: 24px; 
+    margin-right: 24px;
+}
+
+.engineLayouts{
+    max-height: 416px;
+
+    overflow-x: hidden;
+    overflow-y: auto
+}

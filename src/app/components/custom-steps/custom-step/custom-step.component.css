@@ -1,0 +1,11 @@
+.pe-customStep-container {
+  padding-top: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  border-style: none;
+  border-radius: 0%;
+  border-top-style: solid;
+  border-top-width: 1px;
+
+}

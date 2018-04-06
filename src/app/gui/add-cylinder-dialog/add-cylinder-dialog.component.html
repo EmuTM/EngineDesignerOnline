@@ -1,0 +1,38 @@
+<app-custom-dialog #dialog>
+  <div class="dialog">
+    <!-- žal je zaradi primengja tako, da je zaenkrat možno nastavljat height carda samo tako, da ga damo v div in tukaj nastavimo 100% (ali pa inline) -->
+    <p-card styleClass="ui-card-shadow" [style]="{width: '100%', height: '100%'}">
+
+      <app-custom-input-dropdown [(ngModel)]="this.selectedCycle" [items]="this.cycles" itemFieldAsLabel="CycleId" (valueChanged)="this.selectedCycleChanged($event)"
+        caption="Cycle" tooltip="Defines the cylinder's working cycle." [showTooltip]="this.showTooltips" [converter]="this.convertCycle.bind(this)">
+      </app-custom-input-dropdown>
+
+      <div class="divider-s"></div>
+
+      <app-custom-input-text-floating-point [(ngModel)]="this.selectedBore_mm" caption="Bore (mm)" tooltip="Defines the cylinder's bore (piston diameter), in milimeters."
+        [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+      <div class="divider-s"></div>
+
+      <app-custom-input-text-floating-point [(ngModel)]="this.selectedStroke_mm" caption="Stroke (mm)" tooltip="Defines the cylinder's stroke (crank throw crank radius), in milimeters."
+        [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+      <div class="divider-s"></div>
+
+      <app-custom-input-text-floating-point [(ngModel)]="this.selectedTilt_deg" caption="Tilt (deg)" tooltip="Defines the cylinder's tilt angle within the engine (measured from engine's vertical line, clockwise), in degrees."
+        [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+      <app-custom-input-slider [(ngModel)]="this.selectedTilt_deg" [min]="-180" [max]="180"></app-custom-input-slider>
+
+      <div class="divider-s"></div>
+
+      <app-custom-input-text-floating-point [disabled]="!(this.selectedCycle && this.selectedCycle.Duration_deg > 0)" [(ngModel)]="this.selectedFiringAngle_deg"
+        caption="Firing angle (deg)" tooltip="Defines the cylinder's firing angle within the engine, in (crankshaft!) degrees."
+        [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+      <app-custom-input-slider [disabled]="!(this.selectedCycle && this.selectedCycle.Duration_deg > 0)" [(ngModel)]="this.selectedFiringAngle_deg"
+        [min]="0" [max]="this.selectedCycle ? this.selectedCycle.Duration_deg : 100"></app-custom-input-slider>
+
+    </p-card>
+  </div>
+</app-custom-dialog>

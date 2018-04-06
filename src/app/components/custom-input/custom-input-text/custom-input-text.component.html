@@ -1,0 +1,10 @@
+<div class="divider-s"></div>
+
+<div class="ui-float-label" appCustomTooltip [tooltipText]="this.tooltip" [showTooltip]="this.showTooltip">
+  <!-- [(ngModel)] is a short hand for [ngModel] and (ngModelChange). If you separate them you can use pipes (it works for sure with
+  the async pipe) -->
+  <!-- bindamo metodo na this, da dobimo context in lahko delamo override -->
+  <input id="float-input" pInputText [ngModel]="this.value | appCustomizablePipe:transformReference.bind(this)" (ngModelChange)="this.value=$event"
+    [disabled]="this.disabled" [pattern]="this.pattern" fxFlex>
+  <label for="float-input">{{this.caption}}</label>
+</div>

@@ -1,0 +1,11 @@
+<div fxLayout="row" fxLayoutAlign="end none" appCustomTooltip [tooltipText]="this.tooltip" [showTooltip]="this.showTooltip">
+  <span fxFlex>{{this.caption}}:</span>
+  <div fxLayout="row">
+    <!-- bindamo metodo na this, da dobimo context in lahko delamo override -->
+    <span>{{this.value | appCustomizablePipe:this.transformReference.bind(this)}}</span>
+    <pre> </pre>
+    <span>
+      <ng-content></ng-content>
+    </span>
+  </div>
+</div>

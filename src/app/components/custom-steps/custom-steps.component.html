@@ -1,0 +1,8 @@
+<p-steps [model]="this.items" [(activeIndex)]="this.currentStep" [readonly]="this.readonly" styleClass="custom-steps"></p-steps>
+
+<ng-content></ng-content>
+
+
+<!-- <button pButton type="text" *ngIf="activeIndex > 0" (click)="previous()" icon="fa-hand-o-left" label="Previous"></button>
+  <button pButton type="text" *ngIf="activeIndex < items.length - 1" (click)="next()" icon="fa-hand-o-right" iconPos="right"
+    label="Next"></button> -->

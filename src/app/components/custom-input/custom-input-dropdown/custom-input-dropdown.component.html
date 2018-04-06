@@ -1,0 +1,9 @@
+<div class="divider-s"></div>
+
+<div class="ui-float-label" appCustomTooltip [tooltipText]="this.tooltip" [showTooltip]="this.showTooltip">
+  <!-- ne vem zakaj, tukaj fxFlex ne dela; zato je uporabljen width 100% -->
+  <p-dropdown id="float-input" [ngModel]="this.value" (ngModelChange)="this.value=$event" [options]="this.items" [optionLabel]="this.itemFieldAsLabel"
+    [disabled]="this.disabled" [autoDisplayFirst]="false" [autoWidth]="false" [style]="{'width':'100%'}"></p-dropdown>
+
+  <label for="float-input">{{this.caption}}</label>
+</div>

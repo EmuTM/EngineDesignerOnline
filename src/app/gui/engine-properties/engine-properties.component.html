@@ -1,0 +1,301 @@
+<!-- PositionedCylinders -->
+<app-custom-panel caption="Cylinders" tooltip="Defines the cylinders and their positioning within the engine." [showTooltip]="this.showTooltips"
+    [menuModel]="this.positionedCylindersContextMenuItems">
+
+    <!-- PositionedCylinders foreach -->
+    <ng-template ngFor let-positionedCylinder [ngForOf]="this.engine.PositionedCylinders">
+
+        <!-- PositionedCylinder -->
+        <app-custom-panel caption="Cylinder {{positionedCylinder.toString()}}" tooltip="Represents a cylinder unit positioned within the engine."
+            [showTooltip]="this.showTooltips" [menuModel]="this.positionedCylinderContextMenuItems" [menuState]="positionedCylinder"
+            (menuOpening)="this.positionedCylinderMenuOpening($event)">
+            <div fxLayout="column">
+
+                <!-- Cycle -->
+                <app-custom-panel caption="Cycle" tooltip="Defines the cylinder's working cycle." [showTooltip]="this.showTooltips" [menuModel]="this.cycleContextMenuItems"
+                    [menuState]="positionedCylinder" (menuOpening)="this.cycleMenuOpening($event)">
+                    <div fxLayout="column">
+
+                        <!-- Strokes -->
+                        <app-custom-panel caption="Strokes" tooltip="Defines the strokes taking place within this cycle." [showTooltip]="this.showTooltips">
+
+                            <!-- Strokes foreach -->
+                            <ng-template ngFor let-stroke [ngForOf]="positionedCylinder.Cycle.Strokes">
+
+                                <!-- Stroke -->
+                                <app-custom-panel caption="{{stroke.StrokeId}} ({{stroke.Begin_deg}}° - {{stroke.End_deg}}°)" tooltip="Represents well-known piston movement within the cylinder's cycle."
+                                    [showTooltip]="this.showTooltips">
+                                    <div fxLayout="column">
+                                        <app-custom-property-floating-point [value]="stroke.StrokeId" caption="Stroke ID" tooltip="Indicates the unique name for the stroke."
+                                            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+                                        <app-custom-property-floating-point [value]="stroke.Begin_deg" caption="Begin (deg)" tooltip="Indicates the crank throw angle for the beginning of the stroke, in degrees."
+                                            [showTooltip]="this.showTooltips">°</app-custom-property-floating-point>
+
+                                        <app-custom-property-floating-point [value]="stroke.End_deg" caption="End (deg)" tooltip="Indicates the crank throw angle for the end of the stroke, in degrees."
+                                            [showTooltip]="this.showTooltips">°</app-custom-property-floating-point>
+                                    </div>
+                                </app-custom-panel>
+                            </ng-template>
+                        </app-custom-panel>
+
+                        <!-- General -->
+                        <app-custom-panel caption="General" [showTooltip]="this.showTooltips">
+                            <div fxLayout="column">
+                                <app-custom-property-floating-point [value]="positionedCylinder.Cycle.CycleId" caption="Cycle ID" tooltip="Indicates the unique name of the cycle."
+                                    [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+                                <app-custom-property-floating-point [value]="positionedCylinder.Cycle.Duration_deg" caption="Duration (deg)" tooltip="Indicates the duration (in crank throw angle) required for cycle completion, in degrees."
+                                    [showTooltip]="this.showTooltips">°</app-custom-property-floating-point>
+
+                                <app-custom-property-floating-point [value]="positionedCylinder.Cycle.DefaultFiringAngle" caption="Default firing angle (deg)"
+                                    tooltip="Indicates the crank throw angle, in degrees, where the power stroke is to take place."
+                                    [showTooltip]="this.showTooltips">°</app-custom-property-floating-point>
+
+                                <app-custom-property-floating-point [value]="positionedCylinder.Cycle.RevolutionsToCompleteCycle" caption="Revolutions to complete cycle"
+                                    tooltip="Indicates the number of revolutions needed to complete the cycle." [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+                            </div>
+                        </app-custom-panel>
+                    </div>
+                </app-custom-panel>
+
+                <!-- Piston -->
+                <app-custom-panel caption="Piston" tooltip="Represents a piston unit for the cylinder." [showTooltip]="this.showTooltips">
+                    <div fxLayout="column">
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.Piston.Diameter_mm" (valueChanged)="this.valueChanged($event)"
+                            caption="Diameter (mm)" tooltip="Defines the piston's diameter (resulting in cylinder's bore), in milimeters."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.Piston.Mass_g" (valueChanged)="this.valueChanged($event)"
+                            caption="Mass (g)" tooltip="Defines the total mass of the piston (accessories included), in grams."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.Piston.SkirtLength_mm" (valueChanged)="this.valueChanged($event)"
+                            caption="Skirt length (mm)" tooltip="Defines the total (max measurable) length of the piston's skirt (from topmost point to lowest point), in milimeters."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.Piston.GudgeonPinDistanceFromTop_mm" (valueChanged)="this.valueChanged($event)"
+                            caption="Gudgeon pin distance from top of the piston (mm)" tooltip="Defines the distance of the center of the gudgeon pin from the topmost point of the piston, in milimeters."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-m"></div>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.Piston.Area_mm2" caption="Area" tooltip="Indicates the piston's area, in square milimeters."
+                            [showTooltip]="this.showTooltips">
+                            <div fxLayout="row">
+                                mm
+                                <sup>2</sup>
+                            </div>
+                        </app-custom-property-floating-point>
+                    </div>
+                </app-custom-panel>
+
+                <!-- Connecting rod -->
+                <app-custom-panel caption="Connecting rod" tooltip="Represents a connecting rod unit for the cylinder." [showTooltip]="this.showTooltips">
+                    <div fxLayout="column">
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.ConnectingRod.RotatingMass_g" (valueChanged)="this.valueChanged($event)"
+                            caption="Rotating mass (g)" tooltip="Defines the rotating part of mass of the connecting rod (for dynamic equivalency), in grams."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.ConnectingRod.RotatingMassDistanceFromCenterOfGravity_mm"
+                            (valueChanged)="this.valueChanged($event)" caption="Rotating mass distance from CG (mm)" tooltip="Defines the distance of the rotating part of mass from the connecting rod's center of gravity (for dynamic equivalency), in milimeters."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.ConnectingRod.ReciprocatingMass_g" (valueChanged)="this.valueChanged($event)"
+                            caption="Reciprocating mass (g)" tooltip="Defines the reciprocating part of mass of the connecting rod (for dynamic equivalency), in grams."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.ConnectingRod.ReciprocatingMassDistanceFromCenterOfGravity_mm"
+                            (valueChanged)="this.valueChanged($event)" caption="Reciprocating mass distance from CG (mm)" tooltip="Defines the distance of the reciprocating part of mass from the connecting rod's center of gravity (for dynamic equivalency),
+                                                                            in milimeters." [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-m"></div>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.ConnectingRod.Length_mm" caption="Length" tooltip="Indicates the total (max measurable) length of the connecting rod, in milimeters."
+                            [showTooltip]="this.showTooltips">mm</app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.ConnectingRod.Mass_g" caption="Mass" tooltip="Indicates the total mass of the connecting rod (all included), in grams."
+                            [showTooltip]="this.showTooltips">g</app-custom-property-floating-point>
+                    </div>
+                </app-custom-panel>
+
+                <!-- Crank throw -->
+                <app-custom-panel caption="Crank throw" tooltip="Represents a crank throw unit for the cylinder." [showTooltip]="this.showTooltips">
+                    <div fxLayout="column">
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.CrankThrow.CrankRotationRadius_mm" (valueChanged)="this.valueChanged($event)"
+                            caption="Crank rotation radius (mm)" tooltip="Defines the crank throw's rotation radius (resulting in cylinder's stroke), in milimeters."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.CrankThrow.BalancerMass_g" (valueChanged)="this.valueChanged($event)"
+                            caption="Balancer mass (g)" tooltip="Defines the mass of the crank balancer, in grams." [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.CrankThrow.BalancerRotationRadius_mm" (valueChanged)="this.valueChanged($event)"
+                            caption="Balancer rotation radius (mm)" tooltip="Defines the rotation radius of the crank balancer, in milimeters."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.CrankThrow.BalancerAngle_deg" (valueChanged)="this.valueChanged($event)"
+                            caption="Balancer angle (deg)" tooltip="Defines the angle of the balancer with respect to the crank throw, in degrees."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.CrankThrow.CrankPinWidth_mm" (valueChanged)="this.valueChanged($event)"
+                            caption="Crank pin width (mm)" tooltip="Defines the width of the crank pin, in milimeters." [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+                    </div>
+                </app-custom-panel>
+
+                <!-- Layout -->
+                <app-custom-panel caption="Layout" tooltip="Defines the positioning parameters for the cylinder." [showTooltip]="this.showTooltips">
+                    <div fxLayout="column">
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.Tilt_deg" (valueChanged)="this.valueChanged($event)"
+                            caption="Tilt (deg)" tooltip="Defines the cylinder's tilt angle within the engine (measured from engine's vertical line, clockwise), in degrees."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <app-custom-input-slider [(ngModel)]="positionedCylinder.Tilt_deg" (valueChanged)="this.valueChanged($event)" [min]="-180"
+                            [max]="180"></app-custom-input-slider>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [(ngModel)]="positionedCylinder.Offset_mm" (valueChanged)="this.valueChanged($event)"
+                            caption="Offset (mm)" tooltip="Defines the cylinder's center phisical position within the engine (measured from engine's front plane), in milimeters."
+                            [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <div class="divider-s"></div>
+
+                        <app-custom-input-text-floating-point [disabled]="!(positionedCylinder.Cycle && positionedCylinder.Cycle.Duration_deg > 0)"
+                            [(ngModel)]="positionedCylinder.FiringAngle_deg" (valueChanged)="this.valueChanged($event)" caption="Firing angle (deg)"
+                            tooltip="Defines the cylinder's firing angle within the engine, in (crankshaft!) degrees." [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+                        <app-custom-input-slider [disabled]="!(positionedCylinder.Cycle && positionedCylinder.Cycle.Duration_deg > 0)" [(ngModel)]="positionedCylinder.FiringAngle_deg"
+                            (valueChanged)="this.valueChanged($event)" [min]="0" [max]="positionedCylinder.Cycle.Duration_deg"></app-custom-input-slider>
+                    </div>
+                </app-custom-panel>
+
+                <!-- General -->
+                <app-custom-panel caption="General" [showTooltip]="this.showTooltips">
+                    <div fxLayout="column">
+                        <app-custom-property-floating-point [value]="positionedCylinder.Position" caption="Position" tooltip="Indicates the cylinder's numerical position within the engine."
+                            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="this.engine.CrankThrows_deg[positionedCylinder.Position - 1]" caption="Crank throw angle"
+                            tooltip="Indicates the cylinder's crank throw angle (absolute; resulting from defined cylinder setup), in degrees."
+                            [showTooltip]="this.showTooltips">°</app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.Bore_mm" caption="Bore" tooltip="Indicates the cylinder's bore (based on piston's diameter), in milimeters."
+                            [showTooltip]="this.showTooltips">mm</app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.Stroke_mm" caption="Stroke" tooltip="Indicates the cylinder's stroke (based on crank throw crank radius), in milimeters."
+                            [showTooltip]="this.showTooltips">mm</app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.Displacement_cm3" caption="Displacement" tooltip="Indicates the cylinder's total displacement (resulting from defined bore and stroke), in cubic centimeters."
+                            [showTooltip]="this.showTooltips">
+                            <div fxLayout="row">
+                                cm
+                                <sup>3</sup>
+                            </div>
+                        </app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.StrokeToBoreRatio" caption="Stroke/Bore ratio" tooltip="Indicates the cylinder's stroke to bore ratio."
+                            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.BoreToStrokeRatio" caption="Bore/Stroke ratio" tooltip="Indicates the cylinder's bore to stroke ratio."
+                            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.RLRatio" caption="R/L ratio" tooltip="Indicates the crank throw's rotation radius vs. connecting rod length."
+                            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+                        <app-custom-property-floating-point [value]="positionedCylinder.LRRatio" caption="L/R ratio" tooltip="Indicates the cylinder's connecting rod length vs. crank radius."
+                            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+                    </div>
+                </app-custom-panel>
+            </div>
+        </app-custom-panel>
+    </ng-template>
+</app-custom-panel>
+
+<!-- Flywheel -->
+<app-custom-panel caption="Flywheel" tooltip="Represents a flywheel unit for the engine." [showTooltip]="this.showTooltips">
+    <div fxLayout="column">
+        <app-custom-input-text-floating-point [(ngModel)]="this.engine.Flywheel.Diameter_mm" (valueChanged)="this.valueChanged($event)"
+            caption="Diameter (mm)" tooltip="Defines the flywheel's diameter, in milimeters." [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+
+        <div class="divider-s"></div>
+
+        <app-custom-input-text-floating-point [(ngModel)]="this.engine.Flywheel.Mass_g" (valueChanged)="this.valueChanged($event)"
+            caption="Mass (g)" tooltip="Defines the total mass of the flywheel, in grams." [showTooltip]="this.showTooltips"></app-custom-input-text-floating-point>
+    </div>
+</app-custom-panel>
+
+<!-- General -->
+<app-custom-panel caption="General" [showTooltip]="this.showTooltips">
+    <div fxLayout="column">
+        <app-custom-property-floating-point [value]="this.engine.TotalDisplacement_cm3" caption="Total displacement" tooltip="Indicates the engine's total displacement, in cubic centimeters."
+            [showTooltip]="this.showTooltips">cm³</app-custom-property-floating-point>
+
+        <app-custom-property-floating-point [value]="this.engine.NumberOfCylinders" caption="Number of cylinders" tooltip="Indicates the total number of cylinders in this engine (resulting from defined positioned cylinders)."
+            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+        <app-custom-property-floating-point [value]="this.engine.CombinedCycleDuration_deg" caption="Combined cycle duration" tooltip="Indicates the duration, in degrees, of the engine's combined cycle (important when an engine has cylinder with different
+                    cycles)." [showTooltip]="this.showTooltips">°</app-custom-property-floating-point>
+
+        <app-custom-property-floating-point [value]="this.engine.RevolutionsToCompleteCombinedCycle" caption="Revolutions to complete combined cycle"
+            tooltip="Indicates the number of revolutions needed to complete the engine's combined cycle." [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+        <app-custom-property-floating-point [value]="this.engine.FiringOrder" caption="Firing order" tooltip="Indicates the engine's firing order, in cylinder positions (resulting from defined cylinder setups)."
+            [showTooltip]="this.showTooltips"></app-custom-property-floating-point>
+
+        <div>
+            <span>Crank throws & firing angles:</span>
+
+            <div class="divider-s"></div>
+
+            <p-dataTable [value]="this.crankThrowsAndFiringAngles">
+                <p-column field="index">
+                    <ng-template pTemplate="header">
+                        <span appCustomTooltip tooltipText="Indicates the cylinders positions within the engine number (0 = first)." [showTooltip]="this.showTooltips">Cylinder no.</span>
+                    </ng-template>
+                </p-column>
+                <p-column field="crankThrow_deg">
+                    <ng-template pTemplate="header">
+                        <span appCustomTooltip tooltipText="Indicates the engine's crank throws angles (resulting from defined cylinder setups), in degrees."
+                            [showTooltip]="this.showTooltips">Crank throw (deg)</span>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-row="rowData">
+                        {{row.crankThrow_deg | round: 2}}
+                    </ng-template>
+                </p-column>
+                <p-column field="firingAngle_deg">
+                    <ng-template pTemplate="header">
+                        <span appCustomTooltip tooltipText="Indicates the engine's firing angles (resulting from defined cylinder setups), in degrees."
+                            [showTooltip]="this.showTooltips">Firing angle (deg)</span>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-row="rowData">
+                        {{row.firingAngle_deg | round: 2}}
+                    </ng-template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</app-custom-panel>
+
+
+<app-custom-dialog #generalDialog></app-custom-dialog>
+<app-add-cylinder-dialog #addCylinderDialog [showTooltips]="this.showTooltips"></app-add-cylinder-dialog>

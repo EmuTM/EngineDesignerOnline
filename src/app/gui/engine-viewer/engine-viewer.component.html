@@ -1,0 +1,4 @@
+<canvas #canvas (mousedown)="onMouseDown($event)" (mouseup)="onMouseUp($event)" (contextmenu)="contextMenu.show($event)">
+</canvas>
+
+<p-contextMenu #contextMenu [model]="this.contextMenuItems" [appPreventContextMenu]="this.preventContextMenu"></p-contextMenu>

@@ -1,0 +1,27 @@
+.ui-steps.custom-steps {
+    margin-top: 12px;
+    margin-bottom: 48px;
+}
+    
+.ui-steps.custom-steps .ui-steps-item .ui-menuitem-link {
+    height: 4px;
+    top: -14px;
+    padding: 0 1em;
+}
+    
+.ui-steps.custom-steps .ui-steps-item .ui-steps-number {
+    background-color: #0081c2;
+    color: #FFFFFF;
+    display: inline-block;
+    /* height: 32px; */
+    width: 32px;
+    border-radius: 10%;
+    /* margin-top: -10px; */
+    font-size: 130%;
+
+}
+
+.ui-steps.custom-steps .ui-steps-item .ui-steps-title {
+    color: #555555;
+}
+

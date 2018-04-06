@@ -1,0 +1,93 @@
+
+
+/* to je zato, da niso panel headerji kot linki */
+a:-webkit-any-link {
+    text-decoration : none;
+}
+
+
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+sup {
+    vertical-align: super;
+    font-size: xx-small;
+}
+
+h3{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+.divider-s{
+    height: 16px;
+}
+
+.divider-m{
+    height: 32px;
+}
+
+.divider-l{
+    height: 64px;
+}
+
+.textLeft{
+    text-align: left;
+}
+.textRight{
+    text-align: right;
+}
+
+h3{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.line{
+  border-style: none;
+  border-radius: 0%;
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+
+
+
+
+
+
+
+
+/* .red{
+    background-color: red;
+}
+
+.green{
+    background-color:yellowgreen;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.silver{
+    background-color: silver;
+}
+
+.blue{
+    background-color: lightskyblue;
+}
+
+.violet{
+    background-color: violet;
+}
+
+.orange{
+    background-color: orange;
+}
+
+.gray{
+    background-color: gray;
+} */
