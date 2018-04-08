@@ -12,12 +12,12 @@
 .ui-steps.custom-steps .ui-steps-item .ui-steps-number {
     background-color: #0081c2;
     color: #FFFFFF;
-    display: inline-block;
+    /* display: inline-block; */
     /* height: 32px; */
-    width: 32px;
-    border-radius: 10%;
+    /* width: 32px; */
+    border-radius: 5%;
     /* margin-top: -10px; */
-    font-size: 130%;
+    font-size: 150%;
 
 }
 

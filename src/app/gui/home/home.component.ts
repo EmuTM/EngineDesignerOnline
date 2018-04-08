@@ -90,18 +90,24 @@ export class HomeComponent implements OnInit {
           label: 'New',
           items: [
             {
-              label: 'Engine (empty)',
-              command: ($event: any) => { this.newEngine(false); }
-            },
-            {
               label: 'Engine (wizard)',
               command: ($event: any) => { this.newEngine(true); }
             },
+            {
+              label: 'Engine (empty)',
+              command: ($event: any) => { this.newEngine(false); }
+            }
           ]
         },
         { separator: true },
-        { label: 'Open (upload)' },
-        { label: 'Save (download)' }
+        {
+          label: 'Open (upload)',
+          command: ($event: any) => { this.openEngine(true); }
+        },
+        {
+          label: 'Save (download)',
+          command: ($event: any) => { this.saveEngine(true); }
+        }
         ]
       }
     ];
@@ -138,10 +144,7 @@ export class HomeComponent implements OnInit {
       DialogAction.OK | DialogAction.CANCEL,
       DialogIcon.WARNING);
   }
-  public _save($event): void {
-    saveAs(new Blob([JSON.stringify(this.engine)], <BlobPropertyBag>{ type: 'application/json' }), this.filename);
-  }
-  public _open($event): void {
+  public openEngine($event): void {
     this.customUpload.showModal((fileList: FileList) => {
       if (fileList.length > 0) {
         const fileReader: FileReader = new FileReader();
@@ -220,6 +223,9 @@ export class HomeComponent implements OnInit {
         fileReader.readAsText(fileList[0]);
       }
     });
+  }
+  public saveEngine($event): void {
+    saveAs(new Blob([JSON.stringify(this.engine)], <BlobPropertyBag>{ type: 'application/json' }), this.filename);
   }
 
 }

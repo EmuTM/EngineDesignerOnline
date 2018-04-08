@@ -1,61 +1,52 @@
 <div fxLayout="column" appFillHeight>
 
   <p-menubar [model]="this.menuItems" [autoDisplay]="false">
-    <p-button icon="fa fa-list" (onClick)="this._new($event)">New</p-button>
-    <p-button icon="fa fa-list" (onClick)="this._save($event)">Save</p-button>
-    <p-button id="fileSelect" icon="fa fa-list" (onClick)="this._open($event)">Save</p-button>
-
-
-
-    <!-- <input id="file" style="display:none" type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." /> -->
-    <!-- <input #upload style="display:none" type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." /> -->
-
   </p-menubar>
 
   <vertical-split-pane primary-component-initialratio="0.3" appFillHeight>
 
     <div class="split-pane-content-primary" fxLayout="column" appFillHeight [footerElement]="footer">
       <!-- žal ne gre drugače, kot da določim footer -->
-      left
 
-      <div class="blue">
+      <!-- <div class="blue">
         HEADER left
-      </div>
+      </div> -->
 
       <div class="violet" fxFlex appFillHeight>
         <app-engine-properties #engineProperties (enginePropertiesChanged)="this.enginePropertiesChanged($event)"></app-engine-properties>
       </div>
 
-      <div class="orange">
+      <!-- <div class="orange">
         FOOTER left
-      </div>
+      </div> -->
     </div>
 
     <div class="split-pane-content-secondary" fxLayout="column" appFillHeight [footerElement]="footer">
       <!-- žal ne gre drugače, kot da določim footer -->
-      right
 
-      <div class="blue">
+      <!-- <div class="blue">
         HEADER right
-      </div>
+      </div> -->
 
       <div class="violet" fxFlex appFillHeight>
         <app-engine-viewer #engineViewer></app-engine-viewer>
       </div>
 
-      <div class="orange">
+      <!-- <div class="orange">
         FOOTER right
-      </div>
+      </div> -->
     </div>
   </vertical-split-pane>
 
   <div #footer>
     <p-toolbar>
-      <div class="ui-toolbar-group-left">
-        STATUS BAR </div>
+      <!-- <div class="ui-toolbar-group-left">
+        STATUS BAR
+      </div> -->
 
-      <div class="ui-toolbar-group-right">
-        STATUS BAR </div>
+      <!-- <div class="ui-toolbar-group-right">
+        STATUS BAR
+      </div> -->
     </p-toolbar>
   </div>
 

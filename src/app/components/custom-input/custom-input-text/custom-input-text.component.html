@@ -4,7 +4,8 @@
   <!-- [(ngModel)] is a short hand for [ngModel] and (ngModelChange). If you separate them you can use pipes (it works for sure with
   the async pipe) -->
   <!-- bindamo metodo na this, da dobimo context in lahko delamo override -->
+  <!-- po novem je potrebno na temu inputu imeti fxFill namesto fxFlex (samo buh vej zakaj, ker izven tega klasa dela normalno) -->
   <input id="float-input" pInputText [ngModel]="this.value | appCustomizablePipe:transformReference.bind(this)" (ngModelChange)="this.value=$event"
-    [disabled]="this.disabled" [pattern]="this.pattern" fxFlex>
+    [disabled]="this.disabled" [pattern]="this.pattern" fxFill>
   <label for="float-input">{{this.caption}}</label>
 </div>
