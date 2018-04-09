@@ -39,7 +39,9 @@ import { HomeComponent } from './gui/home/home.component';
 import { FillHeightDirective } from './directives/fill-height/fill-height.directive';
 import { EnginePropertiesComponent } from './gui/engine-properties/engine-properties.component';
 import { CustomTooltipDirective } from './directives/custom-tooltip/custom-tooltip.directive';
+import { CustomInputTextComponent } from './components/custom-input/custom-input-text/custom-input-text.component';
 import { CustomInputTextFloatingPointComponent } from './components/custom-input/custom-input-text/custom-input-text-floating-point.component';
+import { CustomPropertyComponent } from './components/custom-property/custom-property.component';
 import { CustomPropertyFloatingPointComponent } from './components/custom-property/custom-property-floating-point.component';
 import { EngineViewerComponent } from './gui/engine-viewer/engine-viewer.component';
 import { PreventContextMenuDirective } from './directives/prevent-context-menu/prevent-context-menu.directive';
@@ -63,7 +65,9 @@ import { CustomUploadComponent } from './components/custom-upload/custom-upload.
     FillHeightDirective,
     EnginePropertiesComponent,
     CustomTooltipDirective,
+    CustomInputTextComponent,
     CustomInputTextFloatingPointComponent,
+    CustomPropertyComponent,
     CustomPropertyFloatingPointComponent,
     EngineViewerComponent,
     PreventContextMenuDirective,

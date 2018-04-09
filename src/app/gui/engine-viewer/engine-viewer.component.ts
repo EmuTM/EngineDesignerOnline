@@ -51,7 +51,7 @@ export class EngineViewerComponent implements AfterViewInit {
   public preventContextMenu: boolean = false;
 
 
-  private contextMenuItems: MenuItem[] =
+  public contextMenuItems: MenuItem[] =
     [
       {
         label: 'Reset',

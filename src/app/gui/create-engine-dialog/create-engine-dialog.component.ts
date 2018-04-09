@@ -780,7 +780,7 @@ export class CreateEngineDialogComponent implements OnInit {
       this.selectedStroke_mm = boreStroke;
     }
   }
-  private setDisplacement(): void {
+  public setDisplacement(): void {
     const pi4: number = Math.PI / 4;
     const bore2: number = Math.pow(this.selectedBore_mm, 2);
 

@@ -113,7 +113,7 @@ export class HomeComponent implements OnInit {
     ];
   }
 
-  private enginePropertiesChanged(engine: Engine) {
+  public enginePropertiesChanged(engine: Engine) {
     // samo zato, da obnovimo create enginea
     this.engineViewer.engine = this.engine;
   }
