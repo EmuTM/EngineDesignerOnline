@@ -12,7 +12,7 @@ import { CustomInputBase } from '../custom-input-base';
 export class CustomInputTextComponent extends CustomInputBase {
   // pattern za validacijo vnosa
   @Input()
-  protected pattern: string;
+  public pattern: string;
 
 
   // ker v HTMLju podamo referenco na funkcijo, moramo imeti tukaj stalno funkcijo, ki potem kliče ustrezen override (v htmlju ne smemo pozabiti na bind, ali pa mora biti ta funkcija lambda, ki že ima this context)
