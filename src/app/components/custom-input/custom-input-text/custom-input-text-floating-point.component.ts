@@ -7,7 +7,7 @@ import { CustomInputTextComponent } from './custom-input-text.component';
 @Component({
   selector: 'app-custom-input-text-floating-point',
   templateUrl: './custom-input-text.component.html',
-  providers: [NgValueAccessorProvider(() => CustomInputTextFloatingPointComponent)]
+  providers: [NgValueAccessorProvider(CustomInputTextFloatingPointComponent)]
 })
 export class CustomInputTextFloatingPointComponent extends CustomInputTextComponent {
   constructor() {

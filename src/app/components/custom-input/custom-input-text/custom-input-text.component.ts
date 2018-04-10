@@ -7,7 +7,7 @@ import { CustomInputBase } from '../custom-input-base';
   selector: 'app-custom-input-text',
   templateUrl: './custom-input-text.component.html',
   // styleUrls: ['./custom-input-text.component.css'],
-  providers: [NgValueAccessorProvider(() => CustomInputTextComponent)]
+  providers: [NgValueAccessorProvider(CustomInputTextComponent)]
 })
 export class CustomInputTextComponent extends CustomInputBase {
   // pattern za validacijo vnosa

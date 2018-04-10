@@ -6,8 +6,7 @@ import { CustomInputBase } from '../custom-input-base';
   selector: 'app-custom-input-checkbox',
   templateUrl: './custom-input-checkbox.component.html',
   styleUrls: ['./custom-input-checkbox.component.css'],
-  providers: [NgValueAccessorProvider(() => CustomInputCheckboxComponent)]
-
+  providers: [NgValueAccessorProvider(CustomInputCheckboxComponent)]
 })
 export class CustomInputCheckboxComponent extends CustomInputBase {
 

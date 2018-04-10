@@ -7,7 +7,7 @@ import { CustomInputBase } from '../custom-input-base';
   selector: 'app-custom-input-dropdown',
   templateUrl: './custom-input-dropdown.component.html',
   // styleUrls: ['./custom-input-dropdown.component.css']
-  providers: [NgValueAccessorProvider(() => CustomInputDropdownComponent)]
+  providers: [NgValueAccessorProvider(CustomInputDropdownComponent)]
 })
 export class CustomInputDropdownComponent extends CustomInputBase {
   @Input()
